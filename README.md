@@ -1,1 +1,2 @@
 # radio_vjs
+A simple vanilla Javascript project to fetch some radio stations from Athens. Its done based on my curiosity and for educational procedures to interact with some Javascript concepts. The API that i used is Radio Browser.

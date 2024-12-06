@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: rgb(69, 69, 73);
+    color:rgb(114, 114, 114);
+    padding: 40px;
+}
+
+h1{
+    color:cornflowerblue;
+}
+
+p{
+    color: rgb(207, 207, 207);
+}
+.frequency-display {
+    margin: 20px auto;
+    font-size: 24px;
+    color: rgb(22, 158, 248);
+    padding: 10px 10px;
+}
+
+
+
+#prev, #next{
+    color: azure;
+}
+
+audio {
+    filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+    width: 200px;
+    height: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+button {
+    padding: 12px 12px;
+    font-size: 16px;
+    background-color: rgb(138, 138, 138);
+    border-radius: 12px;
+
+}
+
+#favicon {
+    width: 50px; 
+    height: 50px;
+    display: block;
+    margin: 10px auto;
+    border-radius: 10px; 
+    border: 1px solid gray; 
+}
+
+#info{
+    padding: 40px;
+}
+
+footer {
+    padding: 40px;
+}
+
+a{
+color: cornflowerblue;
+text-decoration: none;
+}
