@@ -1,4 +1,4 @@
-const apiEndpoint = "http://de1.api.radio-browser.info/json/stations/bycountry/Greece";
+const apiEndpoint = "https://de1.api.radio-browser.info/json/stations/bycountry/Greece";
 const frequencyDisplay = document.getElementById("frequency"); // Areas to show station name
 const faviconElement = document.getElementById("favicon") //  Area to show station logo
 const player = document.getElementById("player"); // Audio tag
