@@ -51,7 +51,7 @@ button {
     border: 1px solid gray; 
 }
 
-#info{
+#defaultInfo, #info{
     padding: 40px;
 }
 

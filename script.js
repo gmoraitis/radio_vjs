@@ -2,10 +2,13 @@ const apiEndpoint = "https://de1.api.radio-browser.info/json/stations/bycountry/
 const frequencyDisplay = document.getElementById("frequency"); // Areas to show station name
 const faviconElement = document.getElementById("favicon") //  Area to show station logo
 const player = document.getElementById("player"); // Audio tag
-const info = document.getElementById("info"); // Add information about the project
+const defaultInfo = document.getElementById("defaultInfo"); // Add information about the project
+const info = document.getElementById('info');
 const stations = []; // Global array for all Greek stations
 const myStations = [];  // Initialize an empty array to store filtered station objects
 let currentStationIndex = 0; // An index
+let currentVolume = 0.35; // Initial volume
+
 
 // Fetch stations for Greece
 async function getGreekStations() {
@@ -30,7 +33,7 @@ async function init() {
     try {
         // Fetch stations
         const stationsData = await getGreekStations();
-        
+
         if (stationsData) {
             console.log("Available stations:", stationsData);
 
@@ -72,22 +75,24 @@ async function init() {
 }
 
 
+
 // Update the displayed frequency and play the station
 function updateStation() {
     const station = myStations[currentStationIndex];
     player.src = station.url;
     player.play();
-    player.volume = 0.45;
+    player.volume = currentVolume;
     frequencyDisplay.innerText = `${station.name}`;
-    if (station.favicon){
+    if (station.favicon) {
         faviconElement.src = station.favicon
         faviconElement.style.display = 'inline';  // Ensure the favicon is visible
     }
-    else{
+    else {
         faviconElement.style.display = 'none'; // Hide it if there is no favicon
     }
-    
+
 }
+
 
 // Event listeners for navigation buttons
 document.getElementById("prev").addEventListener("click", () => {
@@ -126,17 +131,46 @@ document.addEventListener("keydown", (event) => {
             break;
 
         case "ArrowUp": // Increase volume
-            if (player.volume < 1) {
-                player.volume = Math.min(player.volume + 0.1, 1); // Increment volume, cap at 1
-                console.log(`Volume increased to: ${(player.volume * 100).toFixed(0)}%`);
+            if (currentVolume < 1) {
+                currentVolume = Math.min(currentVolume + 0.01, 1); // Increment volume, cap at 1
+                player.volume = currentVolume;
+                console.log(`Volume increased to: ${(currentVolume * 100).toFixed(0)}%`);
+                info.innerText = `Volume increased to: ${(currentVolume * 100).toFixed(0)}%`;
             }
+
+
+            // Show the message for 3 seconds
+            info.style.display = 'block'; // Make sure it's visible
+            defaultInfo.style.display = 'none'; // Hide default info
+
+            setTimeout(() => {
+                info.style.display = 'none'; // Hide the volume message
+                defaultInfo.style.display = 'block'; // Show the default info
+            }, 3000); // 3000 milliseconds = 3 seconds
+
+
+
             break;
 
         case "ArrowDown": // Decrease volume
-            if (player.volume > 0) {
-                player.volume = Math.max(player.volume - 0.1, 0); // Decrement volume, floor at 0
-                console.log(`Volume decreased to: ${(player.volume * 100).toFixed(0)}%`);
+            if (currentVolume > 0) {
+                currentVolume = Math.max(currentVolume - 0.01, 0); // Decrement volume, floor at 0
+                player.volume = currentVolume;
+                console.log(`Volume decreased to: ${(currentVolume * 100).toFixed(0)}%`);
+                info.innerText = `Volume decreased to: ${(currentVolume * 100).toFixed(0)}%`
             }
+
+            // Show the message for 3 seconds
+            info.style.display = 'block'; // Make sure it's visible
+            defaultInfo.style.display = 'none'; // Hide default info
+
+            setTimeout(() => {
+                info.style.display = 'none'; // Hide the volume message
+                defaultInfo.style.display = 'block'; // Show the default info
+            }, 3000); // 3000 milliseconds = 3 seconds
+
+
+
             break;
 
         default:
