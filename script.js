@@ -10,7 +10,11 @@ let currentStationIndex = 0; // An index
 let currentVolume = 0.35; // Initial volume
 
 
-// Fetch stations for Greece
+/**
+ * Fetches all Greek radio stations from the API.
+ * @returns {Promise<Array<object>|null>} A promise that resolves to an array of station objects, or null if an error occurs.
+ */
+// Construction of getGreekStations
 async function getGreekStations() {
 
     try {
@@ -21,14 +25,45 @@ async function getGreekStations() {
         }
 
         const data = await response.json();
+        
         return data;  // Return the parsed JSON data
+    
     } catch (error) {
         console.error("Failed to fetch stations:", error);
         return null;
     }
 }
 
-// Initialize the app
+/**
+ * Updates the UI to display the current station's information and play its audio stream.
+ * - Uses the global currentStationIndex to determine the station to play.
+ * - Uses the global myStations array.
+*/
+// Construction of updateStation
+function updateStation() {
+    const station = myStations[currentStationIndex];
+    player.play();
+    player.src = station.url;
+    player.volume = currentVolume;
+    frequencyDisplay.innerText = `${station.name}`;
+    if (station.favicon) {
+        faviconElement.src = station.favicon
+        faviconElement.style.display = 'inline';  // Ensure the favicon is visible
+    }
+    else {
+        faviconElement.style.display = 'none'; // Hide it if there is no favicon
+    }
+
+}
+
+
+/** Main Function --
+ * - Calls the getGreekStations() and UpdateStation()
+ * - 
+ * - 
+ * - 
+ * 
+*/
 async function init() {
     try {
         // Fetch stations
@@ -75,25 +110,6 @@ async function init() {
 }
 
 
-
-// Update the displayed frequency and play the station
-function updateStation() {
-    const station = myStations[currentStationIndex];
-    player.src = station.url;
-    player.play();
-    player.volume = currentVolume;
-    frequencyDisplay.innerText = `${station.name}`;
-    if (station.favicon) {
-        faviconElement.src = station.favicon
-        faviconElement.style.display = 'inline';  // Ensure the favicon is visible
-    }
-    else {
-        faviconElement.style.display = 'none'; // Hide it if there is no favicon
-    }
-
-}
-
-
 // Event listeners for navigation buttons
 document.getElementById("prev").addEventListener("click", () => {
     currentStationIndex = (currentStationIndex - 1 + myStations.length) % myStations.length;
@@ -107,7 +123,7 @@ document.getElementById("next").addEventListener("click", () => {
 });
 
 
-// Add keyboard controls
+// Add keyboard controls (Arrowleft: <-- , Arrowright: --> , Arrowup: ^ , Arrowdown: v ) 
 document.addEventListener("keydown", (event) => {
     const key = event.key; // Get the key pressed
 
@@ -147,9 +163,6 @@ document.addEventListener("keydown", (event) => {
                 info.style.display = 'none'; // Hide the volume message
                 defaultInfo.style.display = 'block'; // Show the default info
             }, 3000); // 3000 milliseconds = 3 seconds
-
-
-
             break;
 
         case "ArrowDown": // Decrease volume
@@ -168,9 +181,6 @@ document.addEventListener("keydown", (event) => {
                 info.style.display = 'none'; // Hide the volume message
                 defaultInfo.style.display = 'block'; // Show the default info
             }, 3000); // 3000 milliseconds = 3 seconds
-
-
-
             break;
 
         default:
@@ -182,3 +192,6 @@ document.addEventListener("keydown", (event) => {
 
 // Start the app
 init();
+
+
+
