@@ -42,8 +42,8 @@ async function getGreekStations() {
 // Construction of updateStation
 function updateStation() {
     const station = myStations[currentStationIndex];
-    player.play();
     player.src = station.url;
+    player.play();
     player.volume = currentVolume;
     frequencyDisplay.innerText = `${station.name}`;
     if (station.favicon) {
@@ -59,10 +59,7 @@ function updateStation() {
 
 /** Main Function --
  * - Calls the getGreekStations() and UpdateStation()
- * - 
- * - 
- * - 
- * 
+ * - Creates the final object that holds the stations after processing and filtering
 */
 async function init() {
     try {
