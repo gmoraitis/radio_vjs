@@ -55,7 +55,7 @@ function TestButton({ onClick }) {
 export default TestButton;
 ```
 
-2. in the App component we must do the fetching  and pass the object in the button of course, but in general in whatever component we might use in the future rendering it in the App component 
+2. in the App component we must do the fetching, and pass the object in the button of course, but in general in whatever component we might use in the future rendering it in the App component .
 ```jsx
 import './App.css'
 import React, { useState, useEffect } from 'react';
@@ -120,20 +120,27 @@ function App() {
 export default App;
 ```
 
-As you can see the fetching logic is not living inside the useEffect as normally whould , and that is happening because we want (for now) to use a button(logic) to start the fetching procedure. The normal will be
+As you can see the fetching logic is not living inside the useEffect as normally whould , and that is happening because we want (for now) to use a button(logic) to start the fetching procedure. The normal will be:
 
 ```jsx
+import './App.css'
 import React, { useState, useEffect } from 'react';
+import TestButton from './components/TestButton'; // Import the TestButton component
 
 const apiEndpoint = "https://de1.api.radio-browser.info/json/stations/bycountry/Greece";
 
-function RadioApp() {
-  const [stations, setStations] = useState(null);
-  const [loading, setLoading] = useState(true); // Initially loading
-  const [error, setError] = useState(null);
+function App() {
+  const [stations, setStations] = useState(null); // Initialize stations as null
+  const [loading, setLoading] = useState(false); // Add a loading state
+  const [error, setError] = useState(null);       // Add an error state
+
+
 
   useEffect(() => {
     const fetchStations = async () => {
+      setLoading(true); // Set loading to true before fetching
+      setError(null);    // Clear any previous errors
+  
       try {
         const response = await fetch(apiEndpoint);
         if (!response.ok) {
@@ -142,36 +149,45 @@ function RadioApp() {
         const data = await response.json();
         setStations(data);
       } catch (err) {
-        setError(err);
+        setError(err); // Set the error state if there's an error
         console.error("Failed to fetch stations:", err);
       } finally {
-        setLoading(false);
+        setLoading(false); // Set loading to false after fetching (success or failure)
       }
     };
 
-    fetchStations(); // Call the fetch function inside useEffect
+    fetchStations(); // Call the async function. But why inside useEffect?
+    // The useEffect hook is used to perform side effects in function components.
+    // It is similar to componentDidMount and componentDidUpdate in class components.
+    // The fetchStations function is an asynchronous operation that fetches the station data.
+    // By calling it inside useEffect, we ensure that it runs after the component is mounted.
+    // This is a common pattern for fetching data in function components.
+    
+  }, []); // Empty dependency array ensures this runs only once on mount
 
-  }, []); // Empty dependency array: runs only once on mount
+
 
   if (loading) {
-    return <div>Loading stations...</div>;
+    return <div>Loading stations...</div>; // Display a loading message
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error.message}</div>; // Display an error message
   }
 
   return (
     <div>
       <h1>Radio App</h1>
+      {/* Conditionally render station data */}
       {stations && (
-        <pre>{JSON.stringify(stations, null, 2)}</pre>
+        <pre>{JSON.stringify(stations, null, 2)}</pre> // Pretty print the JSON
       )}
     </div>
   );
 }
 
-export default RadioApp;
+export default App;
 ```
-
-
+And with that we just render the stations without any button interaction to start the fetching procedure. 
+- In this part we moved the async function inside the useEffect and also we run the function fetchStations() inside the useEffect block.
+- We deleted the button component and the event handler.

@@ -9,34 +9,38 @@ function App() {
   const [loading, setLoading] = useState(false); // Add a loading state
   const [error, setError] = useState(null);       // Add an error state
 
-  const fetchStations = async () => {
-    setLoading(true); // Set loading to true before fetching
-    setError(null);    // Clear any previous errors
 
-    try {
-      const response = await fetch(apiEndpoint);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setStations(data);
-    } catch (err) {
-      setError(err); // Set the error state if there's an error
-      console.error("Failed to fetch stations:", err);
-    } finally {
-      setLoading(false); // Set loading to false after fetching (success or failure)
-    }
-  };
 
   useEffect(() => {
-    // This will run when the component mounts if you want an initial fetch
-    // You can remove this if you only want to fetch on button click
-    // fetchStations();
+    const fetchStations = async () => {
+      setLoading(true); // Set loading to true before fetching
+      setError(null);    // Clear any previous errors
+  
+      try {
+        const response = await fetch(apiEndpoint);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setStations(data);
+      } catch (err) {
+        setError(err); // Set the error state if there's an error
+        console.error("Failed to fetch stations:", err);
+      } finally {
+        setLoading(false); // Set loading to false after fetching (success or failure)
+      }
+    };
+
+    fetchStations(); // Call the async function. But why inside useEffect?
+    // The useEffect hook is used to perform side effects in function components.
+    // It is similar to componentDidMount and componentDidUpdate in class components.
+    // The fetchStations function is an asynchronous operation that fetches the station data.
+    // By calling it inside useEffect, we ensure that it runs after the component is mounted.
+    // This is a common pattern for fetching data in function components.
+    
   }, []); // Empty dependency array ensures this runs only once on mount
 
-  const handleClick = () => {
-    fetchStations();
-  }
+
 
   if (loading) {
     return <div>Loading stations...</div>; // Display a loading message
@@ -49,7 +53,6 @@ function App() {
   return (
     <div>
       <h1>Radio App</h1>
-      <TestButton onClick={handleClick} /> {/* Pass the function to the button */}
       {/* Conditionally render station data */}
       {stations && (
         <pre>{JSON.stringify(stations, null, 2)}</pre> // Pretty print the JSON
