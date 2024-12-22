@@ -1,6 +1,6 @@
 import './App.css'
 import React, { useState, useEffect } from 'react';
-import TestButton from './components/TestButton'; // Import the TestButton component
+import Station from './components/Station';
 
 const apiEndpoint = "https://de1.api.radio-browser.info/json/stations/bycountry/Greece";
 
@@ -37,7 +37,7 @@ function App() {
     // The fetchStations function is an asynchronous operation that fetches the station data.
     // By calling it inside useEffect, we ensure that it runs after the component is mounted.
     // This is a common pattern for fetching data in function components.
-    
+
   }, []); // Empty dependency array ensures this runs only once on mount
 
 
@@ -54,9 +54,16 @@ function App() {
     <div>
       <h1>Radio App</h1>
       {/* Conditionally render station data */}
-      {stations && (
+      {/* {stations && (
         <pre>{JSON.stringify(stations, null, 2)}</pre> // Pretty print the JSON
-      )}
+      )} */}
+      {stations && stations.map((station) => (
+        <Station key={station.stationuuid
+        } station={station} />
+      ))}
+      {/* Render the Station component with the first station */}
+      {/* {stations && <Station station={stations[0]} />} */}
+
     </div>
   );
 }
