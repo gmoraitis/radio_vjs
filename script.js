@@ -45,14 +45,14 @@ function updateStation() {
     player.src = station.url;
     player.play();
     player.volume = currentVolume;
-    frequencyDisplay.innerText = `${station.name}`;
-    if (station.favicon) {
-        faviconElement.src = station.favicon
-        faviconElement.style.display = 'inline';  // Ensure the favicon is visible
-    }
-    else {
-        faviconElement.style.display = 'none'; // Hide it if there is no favicon
-    }
+    frequencyDisplay.innerText = `${station.frequency} MHz`;
+    // if (station.favicon) {
+    //     faviconElement.src = station.favicon
+    //     faviconElement.style.display = 'inline';  // Ensure the favicon is visible
+    // }
+    // else {
+    //     faviconElement.style.display = 'none'; // Hide it if there is no favicon
+    // }
 
 }
 
@@ -118,6 +118,31 @@ document.getElementById("next").addEventListener("click", () => {
     currentStationIndex = (currentStationIndex + 1) % myStations.length; // Use myStations.length
     updateStation();
 });
+
+document.getElementById("play").addEventListener("click", () => {
+    player.play();
+}
+);
+
+
+
+document.getElementById("stop").addEventListener("click", () => {
+    player.pause();
+    player.currentTime = 0;
+}   
+);
+
+document.getElementById("volume-up").addEventListener("click", () => {
+    player.volume = Math.min(player.volume + 0.1, 1);
+}   
+);
+
+document.getElementById("volume-down").addEventListener("click", () => {
+    player.volume = Math.max(player.volume - 0.1, 0);
+}   
+);  
+    
+
 
 
 // Add keyboard controls (Arrowleft: <-- , Arrowright: --> , Arrowup: ^ , Arrowdown: v ) 
@@ -189,6 +214,30 @@ document.addEventListener("keydown", (event) => {
 
 // Start the app
 init();
+
+
+// add the clock to the page
+// Calling showTime function at every second
+setInterval(showTime, 1000);
+
+// Defining showTime funcion
+function showTime() {
+    // Getting current time and date
+    let time = new Date();
+    let hour = time.getHours();
+    let min = time.getMinutes();
+    let sec = time.getSeconds();
+
+    hour = hour < 10 ? "0" + hour : hour;
+    min = min < 10 ? "0" + min : min;
+
+    let currentTime = hour + ":" + min
+
+    // Displaying the time
+    document.getElementById("clock").innerHTML = currentTime;
+}
+
+showTime(); // Call the function to display the time immediately
 
 
 

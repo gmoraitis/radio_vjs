@@ -1,13 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=VT323');
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: rgb(69, 69, 73);
+    /* background-color: rgb(69, 69, 73); */
     color:rgb(114, 114, 114);
     padding: 40px;
+    background-color: black;
 }
 
 h1{
     color:cornflowerblue;
+    font-family: 'VT323','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 }
 
 p{
@@ -18,12 +23,16 @@ p{
     font-size: 24px;
     color: rgb(22, 158, 248);
     padding: 10px 10px;
+    /* border: 1px solid rgb(22, 158, 248); */
+    font-family: 'VT323','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 }
 
 
 
-#prev, #next{
-    color: azure;
+#prev, #next, #play, #pause, #stop, #volume-up, #volume-down {
+    color: rgb(138, 8, 3);
+    font-size: 30px;
 }
 
 audio {
@@ -37,8 +46,10 @@ audio {
 button {
     padding: 12px 12px;
     font-size: 16px;
-    background-color: rgb(138, 138, 138);
-    border-radius: 12px;
+    border: none;
+    border-color: black;
+    outline:0;
+    background-color: black;
 
 }
 
@@ -66,4 +77,14 @@ footer {
 a{
 color: cornflowerblue;
 text-decoration: none;
+}
+
+
+#clock {
+    font-size: 45px;
+    font-family: 'VT323','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    color: rgb(138, 8, 3);
 }

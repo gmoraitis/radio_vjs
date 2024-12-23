@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FM Radio Web App</title>
   <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>Radio</h1>
-  <img id="favicon" alt="Station Icon"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><body>
+  <h1>FM-Radio</h1>
+  <div id ="clock"></div>
+  <!-- <img id="favicon" alt="Station Icon"/> -->
   <div class="frequency-display" id="frequency"></div>
-  <audio id="player" controls></audio>
+  <audio id="player"></audio>
   <div class="controls">
-    <button id="prev"> < </button>
-    <button id="next"> > </button>
+    <button id="play"><i class="material-icons">play_arrow</i></button>
+    <button id="stop"><i class="material-icons">stop</i></button>
+    <button id="prev"><i class="material-icons">skip_previous</i></button>
+    <button id="next"><i class="material-icons">skip_next</i></button>
+    <button id="volume-up"><i class="material-icons">volume_up</i></button>
+    <button id="volume-down"><i class="material-icons">volume_down</i></button>
   </div>
   <div id="defaultInfo">
     <p> A simple vanilla Javascript project to fetch
