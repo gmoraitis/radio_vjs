@@ -12,25 +12,23 @@ body {
 h1{
     color:cornflowerblue;
     font-family: 'VT323','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
 }
 
 p{
     color: rgb(207, 207, 207);
 }
+
 .frequency-display {
     margin: 20px auto;
     font-size: 24px;
     color: rgb(22, 158, 248);
     padding: 10px 10px;
-    /* border: 1px solid rgb(22, 158, 248); */
     font-family: 'VT323','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
 }
 
 
 
-#prev, #next, #play, #pause, #stop, #volume-up, #volume-down {
+#prev, #next, #play, #pause, #stop, #volume-up, #volume-down, #info-icon {
     color: rgb(138, 8, 3);
     font-size: 30px;
 }
@@ -62,7 +60,7 @@ button {
     border: 1px solid gray; 
 }
 
-#defaultInfo, #info{
+#defaultInfo{
     padding: 40px;
     border-bottom:1px dotted;
     margin-left:auto;

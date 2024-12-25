@@ -1,9 +1,7 @@
 const apiEndpoint = "https://de1.api.radio-browser.info/json/stations/bycountry/Greece";
 const frequencyDisplay = document.getElementById("frequency"); // Areas to show station name
-const faviconElement = document.getElementById("favicon") //  Area to show station logo
 const player = document.getElementById("player"); // Audio tag
 const defaultInfo = document.getElementById("defaultInfo"); // Add information about the project
-const info = document.getElementById('info');
 const stations = []; // Global array for all Greek stations
 const myStations = [];  // Initialize an empty array to store filtered station objects
 let currentStationIndex = 0; // An index
@@ -46,14 +44,6 @@ function updateStation() {
     player.play();
     player.volume = currentVolume;
     frequencyDisplay.innerText = `${station.frequency} MHz`;
-    // if (station.favicon) {
-    //     faviconElement.src = station.favicon
-    //     faviconElement.style.display = 'inline';  // Ensure the favicon is visible
-    // }
-    // else {
-    //     faviconElement.style.display = 'none'; // Hide it if there is no favicon
-    // }
-
 }
 
 
@@ -125,7 +115,6 @@ document.getElementById("play").addEventListener("click", () => {
 );
 
 
-
 document.getElementById("stop").addEventListener("click", () => {
     player.pause();
     player.currentTime = 0;
@@ -133,14 +122,36 @@ document.getElementById("stop").addEventListener("click", () => {
 );
 
 document.getElementById("volume-up").addEventListener("click", () => {
-    player.volume = Math.min(player.volume + 0.1, 1);
+    if (currentVolume < 1) {
+        currentVolume = Math.min(currentVolume + 0.05, 1); // Increment volume, cap at 1
+        player.volume = currentVolume;
+        console.log(`Volume increased to: ${(currentVolume * 100).toFixed(0)}%`);
+    }
+
 }   
 );
 
 document.getElementById("volume-down").addEventListener("click", () => {
-    player.volume = Math.max(player.volume - 0.1, 0);
+    if (currentVolume > 0) {
+        currentVolume = Math.max(currentVolume - 0.05, 0); // Decrement volume, floor at 0
+        player.volume = currentVolume;
+        console.log(`Volume decreased to: ${(currentVolume * 100).toFixed(0)}%`);
+    }
+
 }   
-);  
+); 
+
+document.getElementById("info-icon").addEventListener("click", () => {
+    if (defaultInfo.style.display === 'block') {
+        defaultInfo.style.display = 'none'; // Hide the default info
+        info.style.display = 'block'; // Show the volume message
+    }
+    else {
+        defaultInfo.style.display = 'block'; // Show the default info
+        info.style.display = 'none'; // Hide the volume message
+    }
+}
+);
     
 
 
@@ -173,18 +184,7 @@ document.addEventListener("keydown", (event) => {
                 currentVolume = Math.min(currentVolume + 0.01, 1); // Increment volume, cap at 1
                 player.volume = currentVolume;
                 console.log(`Volume increased to: ${(currentVolume * 100).toFixed(0)}%`);
-                info.innerText = `Volume increased to: ${(currentVolume * 100).toFixed(0)}%`;
             }
-
-
-            // Show the message for 3 seconds
-            info.style.display = 'block'; // Make sure it's visible
-            defaultInfo.style.display = 'none'; // Hide default info
-
-            setTimeout(() => {
-                info.style.display = 'none'; // Hide the volume message
-                defaultInfo.style.display = 'block'; // Show the default info
-            }, 3000); // 3000 milliseconds = 3 seconds
             break;
 
         case "ArrowDown": // Decrease volume
@@ -192,17 +192,7 @@ document.addEventListener("keydown", (event) => {
                 currentVolume = Math.max(currentVolume - 0.01, 0); // Decrement volume, floor at 0
                 player.volume = currentVolume;
                 console.log(`Volume decreased to: ${(currentVolume * 100).toFixed(0)}%`);
-                info.innerText = `Volume decreased to: ${(currentVolume * 100).toFixed(0)}%`
             }
-
-            // Show the message for 3 seconds
-            info.style.display = 'block'; // Make sure it's visible
-            defaultInfo.style.display = 'none'; // Hide default info
-
-            setTimeout(() => {
-                info.style.display = 'none'; // Hide the volume message
-                defaultInfo.style.display = 'block'; // Show the default info
-            }, 3000); // 3000 milliseconds = 3 seconds
             break;
 
         default:
