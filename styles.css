@@ -9,6 +9,7 @@ body {
     background-color: black;
 }
 
+
 h1{
     color:cornflowerblue;
     font-family: 'VT323','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -24,14 +25,17 @@ p{
     color: rgb(22, 158, 248);
     padding: 10px 10px;
     font-family: 'VT323','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 }
 
 
 
-#prev, #next, #play, #pause, #stop, #volume-up, #volume-down, #info-icon {
+#play, #stop, #prev, #next, #volume-up, #volume-down, #info-icon {
     color: rgb(138, 8, 3);
     font-size: 30px;
 }
+
+
 
 audio {
     filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
@@ -39,6 +43,7 @@ audio {
     height: 30px;
     padding-top: 15px;
     padding-bottom: 15px;
+
 }
 
 button {
@@ -85,4 +90,5 @@ text-decoration: none;
     margin: auto;
     text-align: center;
     color: rgb(138, 8, 3);
+
 }
