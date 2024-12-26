@@ -92,3 +92,11 @@ text-decoration: none;
     color: rgb(138, 8, 3);
 
 }
+
+.container {
+    display:block;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
