@@ -1,24 +1,11 @@
-function Frequency({ stations }) {
+import React from 'react';
+
+function Frequency({ stations, currentStationIndex }) {
   return (
     <div>
-      <h2>Radio Stations</h2>
-      <ul>
-        {stations.map((station) => {
-
-            if (station.state === 'Athens') {
-                return (
-                    <li key={station.id}>
-                        {station.name} - {station.url}
-                    </li>
-                )
-            }
-            return null
-        }
-        )}
-        </ul>
+        <div id="frequency-display">{stations[currentStationIndex].frequency}</div>
     </div>
-    );
+  );
 }
-
 
 export default Frequency;

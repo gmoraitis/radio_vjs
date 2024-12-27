@@ -24,7 +24,7 @@ function Clock() {
 
   return (
     <div>
-      The current time is: <span id="clock">{currentTime}</span>
+ <span id="clock">{currentTime}</span>
     </div>
   );
 }
